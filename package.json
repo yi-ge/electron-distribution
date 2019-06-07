@@ -1,0 +1,65 @@
+{
+  "name": "electron-distribution",
+  "version": "1.0.0",
+  "description": "Electron Distribution",
+  "author": "yi-ge <a@wyr.me>",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon src/dev.js",
+    "build": "babel src -d dist",
+    "start": "node dist/app.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ali-oss": "^6.1.1",
+    "axios": "^0.18.0",
+    "chalk": "^2.4.2",
+    "chance": "^1.0.18",
+    "cos-nodejs-sdk-v5": "^2.5.7",
+    "cross-env": "^5.2.0",
+    "dockerode": "^2.5.8",
+    "hapi": "^18.1.0",
+    "hapi-swagger": "^9.4.2",
+    "inert": "^5.1.2",
+    "joi": "^13.7.0",
+    "jssha": "^2.3.1",
+    "lodash": "^4.17.11",
+    "lowdb": "^1.0.0",
+    "moment-timezone": "^0.5.23",
+    "qiniu": "^7.2.1",
+    "simple-git": "^1.110.0",
+    "socket.io": "^2.2.0",
+    "ssh2": "^0.8.2",
+    "vision": "^5.4.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-decorators": "^7.4.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/register": "^7.4.0",
+    "nodemon": "^1.18.10"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".git",
+      "node_modules/**/node_modules"
+    ],
+    "delay": "2500",
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "verbose": true,
+    "execMap": {
+      "js": "node --harmony"
+    },
+    "watch": [
+      "src/"
+    ],
+    "ext": "js,json"
+  },
+  "engines": {
+    "node": ">= 10"
+  }
+}

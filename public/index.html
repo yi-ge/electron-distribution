@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Electron Distribution</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/xterm.css">
+  <script>
+    if (!document.querySelectorAll || !window.localStorage || !self.fetch) {
+      alert('Upgrade your browser, Thank you.')
+    }
+  </script>
+  <style>
+  body {
+    padding: 10px;
+  }
+
+  .out {
+    margin-top: 10px;
+    background-color: black;
+    padding: 10px;
+  }
+
+  #no-auth, #auth {
+    display: none;
+  }
+
+  #terminal {
+    width: 100%;
+    min-height: 428px;
+  }
+
+  #table {
+    max-height: 300px;
+    overflow: auto;
+    margin: 5px 0;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="no-auth">
+    Just for developers debugging, this page is very simple, sorry.
+    <input type="password" size="128" placeholder="Please input the token and press enter key" id="tokenInput">
+  </div>
+
+  <div id="auth">
+    <div class="menu">
+      <input type="button" value="Docker Initialize" id="dockerInitBtn">
+      <input type="button" value="Release Log" id="listReleaseBtn">
+      <input type="button" value="Build Log" id="listBuildBtn">
+      <input type="button" value="Git Pull" id="gitPullBtn">
+      <input type="button" value="Build Linux" id="buildLinuxBtn">
+      <input type="button" value="Build Windows" id="buildWindowsBtn">
+      <input type="button" value="Build Mac" id="buildMacBtn">
+      <input type="button" value="Logout" id="logoutBtn">
+    </div>
+
+    <div id="table"></div>
+
+    <div class="out">
+      <div id="terminal"></div>
+    </div>
+  </div>
+
+  <script src="js/sha.js"></script>
+  <script src="js/xterm.js"></script>
+  <script src="js/addons/fit/fit.js"></script>
+  <script src="js/addons/attach/attach.js"></script>
+  <script src="js/socket.io.js"></script>
+  <script src="js/jsonToTable.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
