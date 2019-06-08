@@ -3,7 +3,7 @@ const isDev = process.env.NODE_ENV ? process.env.NODE_ENV === 'development' : fa
 export const SYSTEM = {
   NAME: process.env.NAME || 'APP',
   TOKEN: process.env.TOKEN || '1jH27dJf9s852',
-  SCHEME: [isDev ? 'http' : (process.env.SCHEME || 'http')],
+  SCHEME: [isDev ? 'http' : (process.env.SCHEME || 'https')],
   DOMAIN: process.env.DOMAIN || 'www.example.com',
   REPOPATH: process.env.REPOPATH || 'git@github.com:yi-ge/electron-distribution.git',
   WORKPATH: process.env.WORKPATH || '/data',
