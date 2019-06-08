@@ -20,6 +20,8 @@ export const SYSTEM = {
   LINUX_SERVER_HOST: process.env.LINUX_SERVER_HOST || '127.0.0.1',
   LINUX_SERVER_PORT: process.env.LINUX_SERVER_PORT || '22',
   LINUX_SERVER_USERNAME: process.env.LINUX_SERVER_USERNAME || 'root',
+  BUILD_CPU_LIMIT: process.env.BUILD_CPU_LIMIT || '0',
+  BUILD_MEMORY_LIMIT: process.env.BUILD_MEMORY_LIMIT || 0,
   OBJECT_STORAGE_TYPE: process.env.OBJECT_STORAGE_TYPE || 'cos'
 }
 

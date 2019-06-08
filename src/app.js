@@ -12,7 +12,7 @@ import websocket from './websocket'
 import DockerOde from 'dockerode'
 import fs from 'fs'
 
-  ;(async () => {
+;(async () => {
   const socketPath = SYSTEM.DOCKER_SOCKET
   const stats = fs.statSync(socketPath)
 
