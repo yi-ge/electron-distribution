@@ -65,7 +65,7 @@ const gitCodeUpdate = async (buidType) => {
           } else {
             resolve({
               code: 1,
-              type: 'clone',
+              type: 'pull',
               change: false
             })
           }
