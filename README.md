@@ -13,6 +13,8 @@ A git repository corresponds to an electron app and an distributed system.
 
 Electron Distribution server-side work in 64 bit Linux OS (required) and MacOS (optional), and build for x64 platform, other platform need to modify the code (It is easy).
 
+![Electron Distribution](/preview.png)
+
 ## Quick Setup Guide
 
 ### In your Linux Server (x64)
