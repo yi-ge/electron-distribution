@@ -13,3 +13,5 @@ npm-debug.log
 .Trashes
 
 yarn-error.log
+
+.vscode

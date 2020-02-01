@@ -11,7 +11,9 @@ Electron build and auto update service, application distribution. Making applica
 
 A git repository corresponds to an electron app and an distributed system.
 
-Electron Distribution server-side work in 64 bit Linux OS (required) and MacOS (optional), and build for x64 platfrom, other platfrom need to modify the code (It is easy).
+Electron Distribution server-side work in 64 bit Linux OS (required) and MacOS (optional), and build for x64 platform, other platform need to modify the code (It is easy).
+
+![Electron Distribution](/preview.png)
 
 ## Quick Setup Guide
 
@@ -174,3 +176,7 @@ Run the `ssh macName@macIp` in the linux server at least once .
 Run the `ssh linux@linuxIp` in the mac server at least once.
 
 Install `rsync` and enable sshd in your Linux Server.
+
+## Author
+
+Yi Wang a@wyr.me
