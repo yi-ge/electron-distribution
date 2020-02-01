@@ -65,7 +65,7 @@ const gitCodeUpdate = async (buidType) => {
           } else {
             resolve({
               code: 1,
-              type: 'clone',
+              type: 'pull',
               change: false
             })
           }
@@ -75,18 +75,19 @@ const gitCodeUpdate = async (buidType) => {
 
   const promiseList = []
 
-  if (buidType.includes('mac')) {
-    if (!fs.existsSync(sourcePath)) {
-      mkdirsSync(sourcePath)
-      promiseList.push(gitClone(repoPath, sourcePath, 'Source'))
+  // 无论是否包含mac，都应该更新参照代码
+  // if (buidType.includes('mac')) {
+  if (!fs.existsSync(sourcePath)) {
+    mkdirsSync(sourcePath)
+    promiseList.push(gitClone(repoPath, sourcePath, 'Source'))
+  } else {
+    if (fs.readdirSync(sourcePath).includes('.git')) {
+      promiseList.push(gitPull(sourcePath, 'Source'))
     } else {
-      if (fs.readdirSync(sourcePath).includes('.git')) {
-        promiseList.push(gitPull(sourcePath, 'Source'))
-      } else {
-        promiseList.push(gitClone(repoPath, sourcePath, 'Source'))
-      }
+      promiseList.push(gitClone(repoPath, sourcePath, 'Source'))
     }
   }
+  // }
 
   if (buidType.includes('linux')) {
     if (!fs.existsSync(linuxPath)) {
