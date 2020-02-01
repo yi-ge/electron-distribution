@@ -39,12 +39,12 @@ docker run -itd --name electron-distribution --restart always \
  wy373226722/electron-distribution:latest
 ```
 
-**China user**
+**China user**  
 Aliyun: `docker pull registry.cn-shenzhen.aliyuncs.com/yi-ge/electron-distribution:latest`
 
 TencentYun: `docker pull ccr.ccs.tencentyun.com/yi-ge/electron-distribution:latest`
 
-**Notice**
+**Notice**  
 You need to configure nginx and SSL by yourself. SCHEME only a tip.
 
 #### Environment
