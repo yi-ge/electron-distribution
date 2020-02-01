@@ -37,8 +37,11 @@ docker run -itd --name electron-distribution --restart always \
  wy373226722/electron-distribution
 ```
 
-国内用户: `docker pull registry.cn-shenzhen.aliyuncs.com/yi-ge/electron-distribution:latest` or `docker pull ccr.ccs.tencentyun.com/yi-ge/electron-distribution:latest`
+**国内用户**
+阿里云镜像：`docker pull registry.cn-shenzhen.aliyuncs.com/yi-ge/electron-distribution:latest`  
 
+腾讯云镜像：`docker pull ccr.ccs.tencentyun.com/yi-ge/electron-distribution:latest`  
+**注意**
 你需要自行安装Nginx并配置使其支持SSL，这是必须的，否则应用程序自动更新可能会失效。`SCHEME`只是一个标识。
 
 #### 环境变量
