@@ -6,7 +6,6 @@ const mac = new qiniu.auth.digest.Mac(QINIU.accessKey, QINIU.secretKey)
 const putPolicy = new qiniu.rs.PutPolicy({
   scope: QINIU.bucket
 })
-const uploadToken = putPolicy.uploadToken(mac)
 
 const config = new qiniu.conf.Config()
 // 空间对应的机房
@@ -18,6 +17,7 @@ config.useHttpsDomain = true
 
 export const uploadLocalFileToQiniu = (key, localFile) => {
   return new Promise((resolve, reject) => {
+    const uploadToken = putPolicy.uploadToken(mac)
     var resumeUploader = new qiniu.resume_up.ResumeUploader(config)
     var putExtra = new qiniu.resume_up.PutExtra()
     // 如果指定了断点记录文件，那么下次会从指定的该文件尝试读取上次上传的进度，以实现断点续传

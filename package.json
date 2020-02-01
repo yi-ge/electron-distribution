@@ -1,10 +1,10 @@
 {
   "name": "electron-distribution",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Electron Distribution",
   "author": "yi-ge <a@wyr.me>",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon src/dev.js",
+    "dev": "nodemon src/dev.js",
     "build": "babel src -d dist",
     "start": "node dist/app.js"
   },
@@ -15,7 +15,6 @@
     "chalk": "^2.4.2",
     "chance": "^1.0.18",
     "cos-nodejs-sdk-v5": "^2.5.7",
-    "cross-env": "^5.2.0",
     "dockerode": "^2.5.8",
     "hapi": "^18.1.0",
     "hapi-swagger": "^9.4.2",
