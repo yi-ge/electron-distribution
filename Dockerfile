@@ -1,4 +1,4 @@
-FROM node:12.4.0-alpine
+FROM node:15.5.0-alpine
 LABEL AUTHOR="yi-ge"
 LABEL maintainer="a@wyr.me"
 

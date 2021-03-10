@@ -1,5 +1,5 @@
-import inert from 'inert'
-import vision from 'vision'
+import inert from '@hapi/inert'
+import vision from '@hapi/vision'
 import hapiSwagger from 'hapi-swagger'
 import { SYSTEM } from '../config'
 import pack from '../../package'
@@ -18,7 +18,7 @@ const swaggerOptions = {
     },
     {
       name: 'build',
-      description: 'APP Buils'
+      description: 'APP Builds'
     }
   ]
 }

@@ -1,4 +1,4 @@
-import hapi from 'hapi'
+import hapi from '@hapi/hapi'
 import swagger from './lib/swagger'
 import {
   SERVER,
@@ -7,12 +7,12 @@ import {
 import routes from './routes'
 import db from './lib/db'
 import moment from 'moment-timezone'
-import SocketIO from 'socket.io'
+import { Server } from 'socket.io'
 import websocket from './websocket'
 import DockerOde from 'dockerode'
 import fs from 'fs'
 
-;(async () => {
+const init = async () => {
   const socketPath = SYSTEM.DOCKER_SOCKET
   const stats = fs.statSync(socketPath)
 
@@ -80,10 +80,10 @@ import fs from 'fs'
         }
       }
     })
-    server.route(routes)
-    await server.start()
 
-    const io = SocketIO.listen(server.listener)
+    const io = new Server(server.listener)
+
+    server.route(routes)
 
     server.bind({
       io
@@ -91,9 +91,18 @@ import fs from 'fs'
 
     websocket(io, docker)
 
+    await server.start()
     console.log('Server running at:', server.info.uri)
   } catch (err) {
     console.log(err)
     process.exit(1)
   }
-})()
+};
+
+process.on('unhandledRejection', (err) => {
+
+  console.log(err);
+  process.exit(1);
+});
+
+init();

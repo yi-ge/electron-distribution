@@ -12,19 +12,19 @@ const GIT_SSH_COMMAND = 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChe
 
 export default [{
   method: 'GET',
-  path: `/app/upload`,
-  config: {
+  path: '/app/upload',
+  options: {
     auth: false,
     tags: ['api', 'app'],
     description: 'Upload app to object storage.',
     validate: {
-      query: {
+      query: Joi.object({
         platform: Joi.string().required().description('System platform'),
         extended: Joi.string().default('x86-64').description('System extended'),
         startDate: Joi.string().required().description('Build startDate'),
         logPath: Joi.string().required().description('Log file path.'),
         token: Joi.string().required().description('Encrypted-Token')
-      }
+      }).unknown()
     }
   },
   async handler (request) {

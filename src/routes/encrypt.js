@@ -3,15 +3,15 @@ import JsSHA from 'jssha'
 
 export default [{
   method: 'GET',
-  path: `/app/encrypt`,
-  config: {
+  path: '/app/encrypt',
+  options: {
     auth: false,
     tags: ['api', 'app'],
     description: 'Token encrypt service.',
     validate: {
-      query: {
+      query: Joi.object({
         token: Joi.string().required().description('Token')
-      }
+      }).unknown()
     }
   },
   async handler (request) {

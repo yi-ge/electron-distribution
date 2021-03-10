@@ -6,7 +6,7 @@ export default (io, socket, docker) => {
     path = decodeURI(path)
 
     const logLast = db.get('buildLog')
-      .filter({logPath: path})
+      .filter({ logPath: path })
       .sortBy((item) => -item.startDate)
       .take()
       .first()

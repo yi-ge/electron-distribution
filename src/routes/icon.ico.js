@@ -1,7 +1,7 @@
 export default [{
   method: 'GET',
-  path: `/app/icon.ico`,
-  config: {
+  path: '/app/icon.ico',
+  options: {
     auth: false,
     tags: ['api', 'app'],
     description: 'Squirrel windows icon.'

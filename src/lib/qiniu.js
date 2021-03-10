@@ -18,8 +18,8 @@ config.useHttpsDomain = true
 export const uploadLocalFileToQiniu = (key, localFile) => {
   return new Promise((resolve, reject) => {
     const uploadToken = putPolicy.uploadToken(mac)
-    var resumeUploader = new qiniu.resume_up.ResumeUploader(config)
-    var putExtra = new qiniu.resume_up.PutExtra()
+    const resumeUploader = new qiniu.resume_up.ResumeUploader(config)
+    const putExtra = new qiniu.resume_up.PutExtra()
     // 如果指定了断点记录文件，那么下次会从指定的该文件尝试读取上次上传的进度，以实现断点续传
     // putExtra.resumeRecordFile = 'progress.log';
     // 文件分片上传

@@ -6,17 +6,17 @@ const LINUX_IMAGE_NAME = 'electronuserland/builder:10'
 
 export default (io, socket, docker) => {
   socket.on('exec', function (id, w, h) {
-    var container = docker.getContainer(id)
-    var cmd = {
-      'AttachStdout': true,
-      'AttachStderr': true,
-      'AttachStdin': true,
-      'Tty': true,
+    const container = docker.getContainer(id)
+    const cmd = {
+      AttachStdout: true,
+      AttachStderr: true,
+      AttachStdin: true,
+      Tty: true,
       Cmd: ['/bin/bash']
     }
     container.exec(cmd, (err, exec) => {
-      var options = {
-        'Tty': true,
+      const options = {
+        Tty: true,
         stream: true,
         stdin: true,
         stdout: true,
@@ -36,7 +36,7 @@ export default (io, socket, docker) => {
 
       exec.start(options, (err, stream) => {
         console.log(err)
-        var dimensions = {
+        const dimensions = {
           h,
           w
         }
@@ -113,7 +113,7 @@ export default (io, socket, docker) => {
         transform (chunk, encoding, callback) {
           let tmp = ''
           try {
-            var result = chunk.toString().match(/{(.*)}/)
+            let result = chunk.toString().match(/{(.*)}/)
             result = result ? result[0] : null
             if (!result) callback()
             tmp = JSON.parse(result)

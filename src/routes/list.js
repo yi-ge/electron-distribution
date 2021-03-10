@@ -4,15 +4,15 @@ import auth from '../lib/auth'
 
 export default [{
   method: 'GET',
-  path: `/app/list/release`,
-  config: {
+  path: '/app/list/release',
+  options: {
     auth: false,
     tags: ['api', 'app'],
     description: 'App release log list.',
     validate: {
-      query: {
+      query: Joi.object({
         token: Joi.string().required().description('Encrypted-Token')
-      }
+      }).unknown()
     }
   },
   async handler (request) {
@@ -29,15 +29,15 @@ export default [{
 },
 {
   method: 'GET',
-  path: `/app/list/build`,
+  path: '/app/list/build',
   config: {
     auth: false,
     tags: ['api', 'app'],
     description: 'App build log list.',
     validate: {
-      query: {
+      query: Joi.object({
         token: Joi.string().required().description('Encrypted-Token')
-      }
+      }).unknown()
     }
   },
   async handler (request) {

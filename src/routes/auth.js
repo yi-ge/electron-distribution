@@ -4,15 +4,15 @@ import auth from '../lib/auth'
 
 export default [{
   method: 'GET',
-  path: `/app/auth`,
-  config: {
+  path: '/app/auth',
+  options: {
     auth: false,
     tags: ['api', 'app'],
     description: 'Check token.',
     validate: {
-      query: {
+      query: Joi.object({
         token: Joi.string().required().description('Encrypted-Token')
-      }
+      }).unknown()
     }
   },
   async handler (request) {

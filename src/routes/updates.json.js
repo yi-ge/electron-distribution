@@ -2,8 +2,8 @@ import { SYSTEM } from '../config'
 
 export default [{
   method: 'GET',
-  path: `/app/updates.json`,
-  config: {
+  path: '/app/updates.json',
+  options: {
     auth: false,
     tags: ['api', 'app'],
     description: 'Update check JSON.'
@@ -41,21 +41,21 @@ export default [{
 
     return {
       'win32-x64-prod': winLast ? {
-        'readme': winLast.name,
-        'update': SYSTEM.SCHEME + '://' + SYSTEM.DOMAIN + '/app/nupkg/' + winLast.version,
-        'install': winLast.downloadUrl,
-        'version': winLast.version
+        readme: winLast.name,
+        update: SYSTEM.SCHEME + '://' + SYSTEM.DOMAIN + '/app/nupkg/' + winLast.version,
+        install: winLast.downloadUrl,
+        version: winLast.version
       } : {},
       'darwin-x64-prod': macLast ? {
-        'readme': macLast.name,
-        'update': SYSTEM.SCHEME + '://' + SYSTEM.DOMAIN + '/app/release.json',
-        'install': macLast.downloadUrl,
-        'version': macLast.version
+        readme: macLast.name,
+        update: SYSTEM.SCHEME + '://' + SYSTEM.DOMAIN + '/app/release.json',
+        install: macLast.downloadUrl,
+        version: macLast.version
       } : {},
       'linux-x64-prod': linuxLast ? {
-        'update': linuxLast.downloadUrl,
-        'install': linuxLast.downloadUrl,
-        'version': linuxLast.version
+        update: linuxLast.downloadUrl,
+        install: linuxLast.downloadUrl,
+        version: linuxLast.version
       } : {}
     }
   }

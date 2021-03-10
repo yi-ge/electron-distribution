@@ -4,13 +4,13 @@ import auth from '../lib/auth'
 export default [
   {
     method: 'POST',
-    path: `/app/release`,
-    config: {
+    path: '/app/release',
+    options: {
       auth: false,
       tags: ['api', 'app'],
       description: 'The app release.',
       validate: {
-        payload: {
+        payload: Joi.object({
           token: Joi.string().required().description('Encrypted-Token'),
           name: Joi.string().required().description('The package.json name'),
           downloadUrl: Joi.string().required().description('Download URL'),
@@ -22,7 +22,7 @@ export default [
           author: Joi.string().description('Author'),
           authorEmail: Joi.string().description('Author Email'),
           message: Joi.string().description('Message')
-        }
+        }).unknown()
       }
     },
     async handler (request) {

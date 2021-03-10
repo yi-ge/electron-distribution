@@ -6,16 +6,16 @@ import axios from 'axios'
 export default [
   {
     method: 'GET',
-    path: `/app/nupkg/{version}/{releases}`,
-    config: {
+    path: '/app/nupkg/{version}/{releases}',
+    options: {
       auth: false,
       tags: ['api', 'app'],
       description: 'RELEASES file or download pukge.',
       validate: {
-        params: {
+        params: Joi.object({
           version: Joi.string().required().description('Version'),
           releases: Joi.string().required().description('RELEASES file or File name')
-        }
+        })
       }
     },
     async handler (request, h) {
@@ -38,7 +38,7 @@ export default [
       if (releases === 'RELEASES' || releases === 'releases') {
         // TODO: ?id=name&localVersion=4.7.2&arch=amd64
         const nupkgLast = this.$db.get('appLog')
-          .filter({type: 'RELEASES', version})
+          .filter({ type: 'RELEASES', version })
           .sortBy((item) => -item.releaseDate)
           .take()
           .first()
@@ -59,7 +59,7 @@ export default [
       } else {
         const fileName = releases
         const nupkgLast = this.$db.get('appLog')
-          .filter({type: 'nupkg', version})
+          .filter({ type: 'nupkg', version })
           .sortBy((item) => -item.releaseDate)
           .take()
           .first()

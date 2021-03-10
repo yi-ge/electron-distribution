@@ -174,19 +174,19 @@ const startDockerToBuild = async (name, version, type, docker) => {
   if (SYSTEM.GH_TOKEN) Env.push('GH_TOKEN=' + SYSTEM.GH_TOKEN)
 
   const optsc = {
-    'AttachStdin': true,
-    'AttachStdout': true,
-    'AttachStderr': true,
-    'Tty': true,
-    'OpenStdin': true,
-    'StdinOnce': false,
-    'Env': Env,
-    'Cmd': ['/bin/bash', '-c', containerCmd],
-    'Image': imageName,
-    'WorkingDir': '/project',
-    'Volumes': {},
-    'VolumesFrom': [],
-    'HostConfig': {
+    AttachStdin: true,
+    AttachStdout: true,
+    AttachStderr: true,
+    Tty: true,
+    OpenStdin: true,
+    StdinOnce: false,
+    Env: Env,
+    Cmd: ['/bin/bash', '-c', containerCmd],
+    Image: imageName,
+    WorkingDir: '/project',
+    Volumes: {},
+    VolumesFrom: [],
+    HostConfig: {
       Binds: [
         workPath + ':/project:rw',
         '/etc/localtime:/etc/localtime:ro',
@@ -204,7 +204,7 @@ const startDockerToBuild = async (name, version, type, docker) => {
       docker.createContainer(optsc, (err, container) => {
         if (err || !container) return reject(err || 'container is null')
 
-        container.attach({stream: true, stdout: true, stderr: true}, (err, stream) => {
+        container.attach({ stream: true, stdout: true, stderr: true }, (err, stream) => {
           const writerStream = fs.createWriteStream(logPath)
           if (err) return writerStream.write(err.toString())
           stream.pipe(writerStream)
@@ -242,7 +242,7 @@ const macBuild = async (name, version) => {
   }).write()
 
   // 1. rsync server -> mac
-  const writerStream = fs.createWriteStream(logPath, {flags: 'a'})
+  const writerStream = fs.createWriteStream(logPath, { flags: 'a' })
   const cmd = `rsync -avrz -e 'ssh -p ${SYSTEM.MAC_SERVER_PORT}' --delete-after --exclude "node_modules" ${sourcePath}/ ${SYSTEM.MAC_SERVER_USERNAME}@${SYSTEM.MAC_SERVER_HOST}:/tmp/${SYSTEM.NAME}`
   writerStream.write(cmd)
   const rsync = spawn('/bin/sh', ['-c', cmd])
@@ -250,7 +250,7 @@ const macBuild = async (name, version) => {
   rsync.stderr.pipe(writerStream)
 
   rsync.on('close', (code) => {
-    const writerStream = fs.createWriteStream(logPath, {flags: 'a'})
+    const writerStream = fs.createWriteStream(logPath, { flags: 'a' })
     writerStream.write(`\nChild process exited with code ${code} \n`)
 
     // 2. build app and rsync mac build dir -> server build dir
@@ -260,7 +260,7 @@ const macBuild = async (name, version) => {
     if (SYSTEM.GH_TOKEN) bashContent += 'export GH_TOKEN=' + SYSTEM.GH_TOKEN + '\n'
     bashContent += 'export LOG_PATH=' + logPath + '\n'
     bashContent += 'cd /tmp/' + SYSTEM.NAME + '\n'
-    bashContent += `yarn --ignore-engines` + ' && yarn run build --' + type + ' --publish ' + publishOpt + '\n'
+    bashContent += 'yarn --ignore-engines' + ' && yarn run build --' + type + ' --publish ' + publishOpt + '\n'
     // bashContent += `echo -e "Host ${SYSTEM.LINUX_SERVER_HOST}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config\n`
     bashContent += `rsync -avrz -e 'ssh -p ${SYSTEM.LINUX_SERVER_PORT}' --exclude "node_modules" /tmp/` + SYSTEM.NAME + '/build/ ' + SYSTEM.LINUX_SERVER_USERNAME + '@' + SYSTEM.LINUX_SERVER_HOST + ':' + sourcePath + '/build \n'
     bashContent += 'curl -X GET "' + SYSTEM.SCHEME + '://' + SYSTEM.DOMAIN + '/app/upload?platform=' + type + '&extended=x86-64&token=' + getHashToken() + '&startDate=' + startDate + '&logPath=' + logPath + '" -H "cache-control: no-cache"\n'
@@ -269,14 +269,14 @@ const macBuild = async (name, version) => {
 
     const conn = new Client()
     conn.on('ready', function () {
-      const writerStream = fs.createWriteStream(logPath, {flags: 'a'})
+      const writerStream = fs.createWriteStream(logPath, { flags: 'a' })
       writerStream.write('Client :: ready\n')
       conn.shell(function (err, stream) {
         if (err) throw err
-        const writerStream = fs.createWriteStream(logPath, {flags: 'a'})
+        const writerStream = fs.createWriteStream(logPath, { flags: 'a' })
         stream.pipe(writerStream)
         stream.on('close', function () {
-          const writerStream = fs.createWriteStream(logPath, {flags: 'a'})
+          const writerStream = fs.createWriteStream(logPath, { flags: 'a' })
           writerStream.write('\nStream :: close\n')
           conn.end()
         })
@@ -304,18 +304,15 @@ const sleep = (s) => new Promise(resolve => setTimeout(resolve, s))
 export default [
   {
     method: 'POST',
-    path: `/build/webhooks`,
-    config: {
+    path: '/build/webhooks',
+    options: {
       auth: false,
       tags: ['api', 'build'],
       description: 'Github webhook',
       validate: {
-        headers: {
+        headers: Joi.object({
           'x-hub-signature': Joi.string().required().description('Github Secret.')
-        },
-        options: {
-          allowUnknown: true
-        }
+        }).unknown()
       }
     },
     async handler (request) {
