@@ -29,10 +29,9 @@ export const uploadLocalFileToQiniu = (key, localFile) => {
       if (respErr) {
         return reject(respErr)
       }
-      if (respInfo.statusCode === 200) {
+      if (respInfo && respInfo.statusCode === 200) {
         resolve(QINIU.url + key)
       } else {
-        console.log(respInfo.statusCode)
         console.log(respBody)
         return reject(respInfo)
       }

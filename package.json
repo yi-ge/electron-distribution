@@ -1,6 +1,6 @@
 {
   "name": "electron-distribution",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Electron Distribution",
   "author": "yi-ge <a@wyr.me>",
   "scripts": {
