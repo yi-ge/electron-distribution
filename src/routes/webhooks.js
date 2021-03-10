@@ -311,7 +311,7 @@ export default [
       description: 'Github webhook',
       validate: {
         headers: Joi.object({
-          'x-hub-signature': Joi.string().required().description('Github Secret.')
+          'x-hub-signature': Joi.string().description('Github Secret.')
         }).unknown()
       }
     },
@@ -321,7 +321,7 @@ export default [
         shaObj.setHMACKey(SYSTEM.TOKEN, 'TEXT')
         shaObj.update(JSON.stringify(request.payload))
         const hash = shaObj.getHMAC('HEX')
-        if (request.headers && request.headers['x-hub-signature'] === 'sha1=' + hash) {
+        if (request.headers && ((request.headers['x-hub-signature'] === 'sha1=' + hash) || (request.headers['x-gitea-signature'] && request.payload.secret === SYSTEM.TOKEN))) {
           const updateCodeRes = await gitCodeUpdate(SYSTEM.BUILD_TYPE)
           if (updateCodeRes) {
             const packageJson = JSON.parse(fs.readFileSync(path.join(sourcePath, 'package.json'), 'utf-8'))
